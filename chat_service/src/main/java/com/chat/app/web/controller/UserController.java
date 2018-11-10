@@ -38,6 +38,7 @@ public class UserController extends BaseController {
     ) throws Exception {
 
        userService.add(user);
+        System.out.print("hello");
         return ResponseWrapper().addMessage("操作成功").ExeSuccess();
     }
 
