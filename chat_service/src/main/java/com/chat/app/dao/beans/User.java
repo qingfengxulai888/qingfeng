@@ -10,6 +10,9 @@ import java.util.Date;
 @Table(name = "tb_user")
 public class User {
 
+    public static final int MAX_PASSWORD_LENGTH = 21;
+    public static final int MIN_PASSWORD_LENGTH = 5;
+
     @Id
     private Long id;
 
@@ -40,4 +43,18 @@ public class User {
     private  String lat;
 
     private Integer enable;
+
+    public static boolean isValidPwd(String password) {
+        if (null == password) {
+            return false;
+        }
+        return password.length() > User.MIN_PASSWORD_LENGTH && password.length() < User.MAX_PASSWORD_LENGTH;
+    }
+
+    public static boolean isValidPhoneNum(String telephone) {
+        if (null == telephone) {
+            return false;
+        }
+        return telephone.matches("^1[3-5|8|7]\\d{9}$");
+    }
 }
