@@ -20,7 +20,7 @@ public class User {
 
     private Integer age;
 
-    private String userPassword;
+    private String password;
 
     private String telephone;
 
@@ -56,5 +56,12 @@ public class User {
             return false;
         }
         return telephone.matches("^1[3-5|8|7]\\d{9}$");
+    }
+
+    public  static boolean isValidUserCode(String userCode){
+        if(null == userCode){
+            return false;
+        }
+        return userCode.matches("^1[3-5|8|7]\\d{9}$");
     }
 }
