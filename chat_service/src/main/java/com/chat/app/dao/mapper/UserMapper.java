@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by righteyte on 16/6/16.
+ * Created by xulin on 18/11/09.
  */
 @Mapper
 @Component(value = "userMapper")

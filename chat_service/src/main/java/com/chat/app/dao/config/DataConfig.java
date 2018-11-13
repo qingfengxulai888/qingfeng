@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * -- 必须存在 --  封装的数据库配置读取
- * Created by zbs on 16/7/1.
+ * Created by xulin on 18/11/13.
  */
 @Configuration
 @EnableTransactionManagement
