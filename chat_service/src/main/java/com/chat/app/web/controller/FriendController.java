@@ -100,6 +100,8 @@ public class FriendController extends BaseController {
                                   @RequestParam(value = "endAge") Integer endAge,
                                   @RequestParam(value = "gender") Integer gender,
                                   @RequestParam(value = "range") Integer range,
+                                  @RequestParam(value = "lon") String lon,
+                                  @RequestParam(value = "lat") String lat,
                                   @RequestParam(value = "page") Integer page,
                                   @RequestParam(value = "pageSize") Integer pageSize) throws Exception {
 
