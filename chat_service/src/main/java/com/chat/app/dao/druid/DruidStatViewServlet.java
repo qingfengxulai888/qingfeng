@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 
 /**
  *  -- 必须存在 --  druid 监控配置
- * Created by zbs on 16/6/29.
+ * Created by xulin on 18/11/13.
  */
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/druid/*",

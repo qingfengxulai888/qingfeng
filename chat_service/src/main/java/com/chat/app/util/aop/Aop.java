@@ -5,7 +5,7 @@ import com.us.base.util.aop.BaseAop;
 
 
 /**
- * Created by righteyte on 16/6/17.
+ * Created by xulin on 18/11/08.
  */
 //参考网址:http://blog.csdn.net/jiaobuchong/article/details/50420379
 /*@Aspect
