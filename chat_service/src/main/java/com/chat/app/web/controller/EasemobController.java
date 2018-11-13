@@ -7,6 +7,7 @@ import com.chat.app.service.UserService;
 import com.chat.app.util.easemob.api.impl.EasemobIMUsers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.swagger.client.model.Nickname;
 import io.swagger.client.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,11 +62,24 @@ public class EasemobController extends BaseController {
         io.swagger.client.model.User p = new io.swagger.client.model.User().username("pangpang").password("111111");
         registerUsers.add(p);
         Object result = easemobIMUsers.createNewIMUserSingle(registerUsers);
-        logger.info(gson.toJson(result));
+        Object results = easemobIMUsers.modifyIMUserNickNameWithAdminToken("pangpang","pangpang");
+        logger.info(gson.toJson(results));
 
         return ResponseWrapper().addData("success").addMessage("环信创建用户操作成功").ExeSuccess();
     }
 
+
+    @RequestMapping(value = "modifyIMUserNickName", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject modifyIMUserNickName(HttpServletRequest request) throws Exception {
+
+        Nickname nickname = new Nickname();
+        nickname.setNickname("pangpang");
+        Object results = easemobIMUsers.modifyIMUserNickNameWithAdminToken("pangpang",nickname);
+        logger.info(gson.toJson(results));
+
+        return ResponseWrapper().addData("success").addMessage("环信创建用户操作成功").ExeSuccess();
+    }
 
 
 }

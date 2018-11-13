@@ -10,6 +10,7 @@ import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.us.base.util.MD5Encryption;
+import io.swagger.client.model.Nickname;
 import io.swagger.client.model.RegisterUsers;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,7 +105,7 @@ public class UserService {
         user.setCreateTime(new Date());
         user.setEnable(1);
         user.setUserCode(userCode);
-        user.setNickName(telephone);
+        user.setNickName(userCode);
         userMapper.insert(user);
         //注册环信账号
         RegisterUsers registerUsers = new RegisterUsers();
@@ -112,6 +113,9 @@ public class UserService {
         registerUsers.add(p);
         Object result = easemobIMUsers.createNewIMUserSingle(registerUsers);
         logger.info(gson.toJson(result));
+        Nickname nickname = new Nickname();
+        nickname.setNickname(userCode);
+        Object results = easemobIMUsers.modifyIMUserNickNameWithAdminToken(userCode,nickname);
         return  user;
     }
 

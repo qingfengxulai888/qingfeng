@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * Created by righteye on 16/8/24.
+ * Created by xulin on 18/11/08.
  */
 
 @WebFilter(filterName = "VerifyIpFilter",urlPatterns ={"/account/userInfo/*","/account/api/userInfo/*"})
