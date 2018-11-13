@@ -83,5 +83,27 @@ public class FriendController extends BaseController {
         return ResponseWrapper().addData(list).ExeSuccess();
     }
 
+    /**
+     * 根据年龄、性别、距离搜索
+     * @param request
+     * @param startAge
+     * @param endAge
+     * @param gender
+     * @param range
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "findByTerms", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONObject findByTerms(HttpServletRequest request,
+                                  @RequestParam(value = "startAge") Integer startAge,
+                                  @RequestParam(value = "endAge") Integer endAge,
+                                  @RequestParam(value = "gender") Integer gender,
+                                  @RequestParam(value = "range") Integer range,
+                                  @RequestParam(value = "page") Integer page,
+                                  @RequestParam(value = "pageSize") Integer pageSize) throws Exception {
+
+        return ResponseWrapper().addData(null).ExeSuccess();
+    }
 
 }
