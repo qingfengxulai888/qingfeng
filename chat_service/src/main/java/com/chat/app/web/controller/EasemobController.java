@@ -7,6 +7,7 @@ import com.chat.app.service.UserService;
 import com.chat.app.util.easemob.api.impl.EasemobIMUsers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.swagger.client.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
