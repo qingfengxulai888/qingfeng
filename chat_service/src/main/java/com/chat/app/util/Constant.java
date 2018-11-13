@@ -1,5 +1,8 @@
 package com.chat.app.util;
 
+import io.swagger.client.api.AuthenticationApi;
+import io.swagger.client.model.Token;
+
 /**
  * Created by zbs on 16/9/1.
  */
@@ -70,4 +73,16 @@ public final static String uri_find_user_coupon_num = url_path+"/order/promotion
 
     public static final String default_avatar = "http://us-shop-2.oss-cn-beijing.aliyuncs.com/images/temp/avatar/new_ava.png";
   public static final String MAX_PAGE_SIZE  = "100";
+
+
+   /*环信相关*/
+    public static String ORG_NAME = "1100181109113249";
+    public static String APP_NAME = "skgy";
+    public static String GRANT_TYPE = "client_credentials";
+    private static String CLIENT_ID = "YXA6RVHyAOPuEeiJnt14CPLJtg";
+    private static String CLIENT_SECRET = "YXA6aPj_I6EsCGImyqI9fJzl_01ePFs";
+    private static Token BODY;
+    private static AuthenticationApi API = new AuthenticationApi();
+    private static String ACCESS_TOKEN;
+    private static Double EXPIREDAT = -1D;
 }
