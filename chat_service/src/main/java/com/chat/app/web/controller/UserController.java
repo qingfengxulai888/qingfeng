@@ -17,6 +17,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -88,13 +89,22 @@ public class UserController extends BaseController {
     }
 
 
-
+    /**
+     * 账号密码登陆
+     * @param request
+     * @param userCode
+     * @param password
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "loginByUserCode", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject loginByUserCode(
             HttpServletRequest request,
             @RequestParam(value = "userCode") String userCode,
-            @RequestParam(value = "password") String password
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "lon") String lon,
+            @RequestParam(value = "lat") String lat
     ) throws Exception {
         User user = userService.findUsertByUserCode(userCode);
         //判断用户是否存在
@@ -104,10 +114,17 @@ public class UserController extends BaseController {
         Preconditions.checkState(password.equals(user.getPassword()), "账号或密码错误,请重新登录");
         //执行登陆操作
         String token = loginService.login(user.getId());
+        User u = new User();
+        u.setId(user.getId());
+        u.setLastLoginTime(new Date());
+        u.setLon(lon);
+        u.setLat(lat);
+        userService.updateUserInfo(u);
+        User userInfo= userMapper.selectByPrimaryKey(u.getId());
         //返回用户基本信息和token
         Map<String,Object> map = new HashMap<>();
         map.put("token",token);
-        map.put("user",user);
+        map.put("user",userInfo);
         return ResponseWrapper().addData(map).ExeSuccess();
     }
 
@@ -124,7 +141,9 @@ public class UserController extends BaseController {
     public JSONObject resetPassword(
             HttpServletRequest request,
             @RequestParam(value = "telephone") String telephone,
-            @RequestParam(value = "newpassword") String newpassword
+            @RequestParam(value = "newpassword") String newpassword,
+            @RequestParam(value = "lon") String lon,
+            @RequestParam(value = "lat") String lat
     ) throws Exception {
         //判断用户是否存在
         Preconditions.checkState(userService.isExistByTelephone(telephone),"该手机号尚未注册,请前往注册");
@@ -133,6 +152,10 @@ public class UserController extends BaseController {
         User user = new User();
         user.setId(param.getId());
         user.setPassword(MD5Encryption.getMD5(newpassword));
+        user.setUpdateTime(new Date());
+        user.setLastLoginTime(new Date());
+        user.setLon(lon);
+        user.setLat(lat);
         userService.updateUserInfo(user);
         //执行登陆，并返回用户基本信息
         String token = loginService.login(param.getId());

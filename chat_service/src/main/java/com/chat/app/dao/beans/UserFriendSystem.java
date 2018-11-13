@@ -16,7 +16,7 @@ public class UserFriendSystem {
 
     private  Long userToId;
     /**
-     * 状态（1发送请求2已加入好友3已删除4已拉黑）
+     * 状态（1发送请求2待验证3已加入好友4已删除5已拉黑）
      */
     private  Integer status;
 

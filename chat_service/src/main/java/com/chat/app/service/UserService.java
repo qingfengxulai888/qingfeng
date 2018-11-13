@@ -2,10 +2,17 @@ package com.chat.app.service;
 
 import com.chat.app.dao.beans.User;
 import com.chat.app.dao.mapper.UserMapper;
+import com.chat.app.util.easemob.api.impl.EasemobIMUsers;
+import com.chat.app.web.controller.EasemobController;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.us.base.util.MD5Encryption;
+import io.swagger.client.model.RegisterUsers;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +26,10 @@ import java.util.Random;
  */
 @Service
 public class UserService {
+
+    private static final Log logger = LogFactory.getLog(UserService.class);
+    private static final Gson gson = new GsonBuilder().serializeNulls().create();
+    private final static EasemobIMUsers easemobIMUsers = new EasemobIMUsers();
 
     @Autowired
    private UserMapper userMapper;
@@ -83,15 +94,24 @@ public class UserService {
      * @return
      * @throws Exception
      */
+    @Transactional
     public  User registeUser(String telephone, String password) throws Exception {
-
+        //数据库中添加
         User user = new User();
+        String userCode = createUserCode();
         user.setTelephone(telephone);
         user.setPassword(password);
         user.setCreateTime(new Date());
         user.setEnable(1);
-        user.setUserCode(createUserCode());
+        user.setUserCode(userCode);
+        user.setNickName(telephone);
         userMapper.insert(user);
+        //注册环信账号
+        RegisterUsers registerUsers = new RegisterUsers();
+        io.swagger.client.model.User p = new io.swagger.client.model.User().username(userCode).password(password);
+        registerUsers.add(p);
+        Object result = easemobIMUsers.createNewIMUserSingle(registerUsers);
+        logger.info(gson.toJson(result));
         return  user;
     }
 

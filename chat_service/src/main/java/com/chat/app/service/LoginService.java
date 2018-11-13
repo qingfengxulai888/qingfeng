@@ -93,6 +93,7 @@ public class LoginService {
         keys.add(String.valueOf(user));
         keys.add(token);
         Preconditions.checkState(Integer.valueOf(String.valueOf(RedisCommon.eval(ADD_TOKEN,keys,new ArrayList<String>()))) == 1,"保存登陆信息失败.");
+
         return token;
     }
 
